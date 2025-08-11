@@ -1,0 +1,55 @@
+
+.navbar {
+  background: transparent !important;
+  box-shadow: none; /* Optional: removes shadow */
+  height: 100px; /* Adjust height as needed */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+/* Add padding to main container to prevent navbar overlap */
+.container {
+  padding-top: 110px; /* Should be slightly more than navbar height */
+}
+
+.nav-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.navbar-brand {
+  color: red;
+  font-size: 3rem;
+  font-family: monospace;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 1;
+  pointer-events: none; /* Prevents blocking toggler clicks */
+}
+
+.sleek-toggler {
+  width: 180px; /* Wide and sleek */
+  height: 40px;
+  border-radius: 20px;
+  background: #222;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.sleek-toggler .navbar-toggler-icon {
+  width: 2rem;
+  height: 2rem;
+}

@@ -1,0 +1,76 @@
+/* Fade-in animation for TitleHeader */
+.fade-in {
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: fadeInTitle 0.8s ease-out forwards;
+}
+
+@keyframes fadeInTitle {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Outer container for TitleHeader for neat layout */
+.title-header-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 2rem 1rem 0;
+  box-sizing: border-box;
+  gap: 2rem;
+}
+/* TitleHeader styles */
+.title-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  padding: 2rem 1rem 0 1rem;
+  box-sizing: border-box;
+}
+
+.title-header-content {
+  flex: 1 1 0;
+  text-align: center;
+}
+
+.title-header-content h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  color: #1a1a1a;
+}
+
+.title-header-content p {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #444;
+}
+
+.title-header-logo {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-left: 2rem;
+}
+
+@media (max-width: 700px) {
+  .title-header-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.5rem 0 0.5rem;
+  }
+  .title-header-content {
+    text-align: center;
+  }
+  .title-header-logo {
+    margin: 1rem 0 0 0;
+    width: 80px;
+    height: 80px;
+  }
+}
