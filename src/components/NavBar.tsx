@@ -12,7 +12,6 @@ const NavBarInner: React.FC = () => {
     const setHeightVar = () => {
       const h = el.offsetHeight || 70;
       document.documentElement.style.setProperty("--nav-height", `${h}px`);
-      document.body.style.paddingTop = `var(--nav-height)`;
     };
 
     setHeightVar();
@@ -21,7 +20,6 @@ const NavBarInner: React.FC = () => {
     return () => {
       window.removeEventListener("resize", setHeightVar);
       document.documentElement.style.removeProperty("--nav-height");
-      document.body.style.paddingTop = "";
     };
   }, []);
 
@@ -33,7 +31,9 @@ const NavBarInner: React.FC = () => {
       aria-label="Main navigation"
     >
       <div className="container-fluid nav-flex">
-        <a className="navbar-brand mx-auto">Cruzader TKD</a>
+        <a className="navbar-brand mx-auto" href="#title-header">
+          Cruzader TKD
+        </a>
 
         <button
           className="navbar-toggler sleek-toggler"
@@ -50,12 +50,9 @@ const NavBarInner: React.FC = () => {
           className="offcanvas offcanvas-end"
           tabIndex={-1}
           id="offcanvasDarkNavbar"
-          aria-labelledby="offcanvasDarkNavbarLabel"
         >
           <div className="offcanvas-header">
-            <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">
-              Menu
-            </h5>
+            <h5 className="offcanvas-title">Menu</h5>
             <button
               type="button"
               className="btn-close"
@@ -66,56 +63,26 @@ const NavBarInner: React.FC = () => {
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li className="nav-item">
-                <a className="nav-link active" href="#">
+                <a className="nav-link" href="#title-header">
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Link
+                <a className="nav-link" href="#information">
+                  Information
                 </a>
               </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                >
-                  Dropdown
+              <li className="nav-item">
+                <a className="nav-link" href="#contents">
+                  Contents
                 </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else
-                    </a>
-                  </li>
-                </ul>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#contacts">
+                  Contacts
+                </a>
               </li>
             </ul>
-            <form className="d-flex mt-3" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-              />
-              <button className="btn btn-success" type="submit">
-                Search
-              </button>
-            </form>
           </div>
         </div>
       </div>

@@ -1,20 +1,16 @@
-import "../assets/css/Footer.css";
+import React from "react";
 
-export default function Footer() {
+const Footer: React.FC = () => {
   return (
-    <footer className="footer">
-      <button type="button" className="btn">
-        Home
-      </button>
-      <button type="button" className="btn">
-        Projects
-      </button>
-      <button type="button" className="btn">
-        Contact
-      </button>
-      <p className="footer-text">
-        © {new Date().getFullYear()} Cruzader TKD. All rights reserved.
-      </p>
+    <footer style={{ padding: "1rem", textAlign: "center" }}>
+      <p>&copy; 2025 Cruzader TKD</p>
+      <nav>
+        <a href="#title-header">Home</a> |{" "}
+        <a href="#information">Information</a> |{" "}
+        <a href="#contents">Contents</a> | <a href="#contacts">Contacts</a>
+      </nav>
     </footer>
   );
-}
+};
+
+export default Footer;

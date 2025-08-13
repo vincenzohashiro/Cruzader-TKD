@@ -1,0 +1,7 @@
+.fullscreen-section {
+  min-height: 100vh; /* fill the screen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem; /* some breathing room */
+}

@@ -1,25 +1,34 @@
 import React from "react";
-import Information from "../components/Information";
 import TitleHeader from "../components/TitleHeader";
-import Footer from "../components/Footer";
+import Information from "../components/Information";
+import Contents from "../components/Contents";
+import Contacts from "../components/Contacts";
 import NavBar from "../components/NavBar";
-import Contents from "../components/Contents"; // ⬅ Import your new component
+import Footer from "../components/Footer";
 
 const StartPage: React.FC = () => {
   return (
     <>
       <NavBar />
 
-      <TitleHeader />
+      {/* Fullscreen only for the header */}
+      <section id="title-header" style={{ height: "100vh" }}>
+        <TitleHeader />
+      </section>
 
-      <div className="page-container">
-        <main>
-          {/* Existing card grid/info section */}
-          <Information />
-        </main>
-      </div>
-      {/* Alternating full-screen sections */}
-      <Contents />
+      {/* Natural height sections */}
+      <section id="information">
+        <Information />
+      </section>
+
+      <section id="contents">
+        <Contents />
+      </section>
+
+      <section id="contacts">
+        <Contacts logoUrl="/assets/logo.png" />
+      </section>
+
       <Footer />
     </>
   );

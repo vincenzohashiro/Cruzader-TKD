@@ -1,5 +1,4 @@
-import React from "react";
-import { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "../assets/css/InformationCards.css";
 
 type InfoItem = {
@@ -45,6 +44,13 @@ const infoData: InfoItem[] = [
   },
 ];
 
+// ✅ Titles for each row
+const sectionTitles: string[] = [
+  "About Our Program",
+  "Our Philosophy",
+  "Achievements",
+];
+
 function useFadeOnScroll(delay = 0, threshold = 0.2) {
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -84,32 +90,41 @@ const InfoCards: React.FC<InfoCardsProps> = ({ rowHeight = "50vh" }) => {
     <div className="info-grid">
       {rows.map((pair, rowIdx) => {
         const { ref, inView } = useFadeOnScroll(rowIdx * 150);
+        const sectionTitle = sectionTitles[rowIdx] || `Section ${rowIdx + 1}`;
+
         return (
-          <div
-            ref={ref}
-            key={rowIdx}
-            className={`info-row ${inView ? "in-view" : ""}`}
-            style={{ minHeight: rowHeight }}
-          >
-            {pair.map((item, idx) => {
-              const globalIndex = rowIdx * 2 + idx;
-              const alignClass =
-                globalIndex % 2 === 0 ? "align-left" : "align-right";
-              return (
-                <article
-                  key={globalIndex}
-                  className={`info-card ${alignClass}`}
-                >
-                  <div className="info-card-text">
-                    <h3 className="info-card-title">{item.title}</h3>
-                    <p className="info-card-content">{item.content}</p>
-                  </div>
-                  <div className="info-card-media">
-                    <img src={item.image} alt={item.title} />
-                  </div>
-                </article>
-              );
-            })}
+          <div key={rowIdx} className="info-row-wrapper">
+            {/* Section title ABOVE the row */}
+            <h2 className={`info-section-title ${inView ? "in-view" : ""}`}>
+              {sectionTitle}
+            </h2>
+
+            {/* Cards container */}
+            <div
+              ref={ref}
+              className={`info-row ${inView ? "in-view" : ""}`}
+              style={{ minHeight: rowHeight }}
+            >
+              {pair.map((item, idx) => {
+                const globalIndex = rowIdx * 2 + idx;
+                const alignClass =
+                  globalIndex % 2 === 0 ? "align-left" : "align-right";
+                return (
+                  <article
+                    key={globalIndex}
+                    className={`info-card ${alignClass}`}
+                  >
+                    <div className="info-card-text">
+                      <h3 className="info-card-title">{item.title}</h3>
+                      <p className="info-card-content">{item.content}</p>
+                    </div>
+                    <div className="info-card-media">
+                      <img src={item.image} alt={item.title} />
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
           </div>
         );
       })}

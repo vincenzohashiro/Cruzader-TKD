@@ -5,22 +5,19 @@
 
 
 /* Remove flex from body */
-body {
+html, body {
   margin: 0;
-  color: black;
-  background: white;
+  padding: 0;
+  height: 100%;
+  scroll-behavior: smooth;
 }
 
-/* Wrapper for all non-navbar content */
-.page-container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 1rem;
-  min-height: calc(100vh - 100px); /* full viewport height minus navbar */
-  box-sizing: border-box;
-  background-color: red;
+.fullscreen-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 
 .logo {
   height: 6em;
