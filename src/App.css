@@ -9,12 +9,11 @@ body {
   margin: 0;
   color: black;
   background: white;
-  
 }
 
 /* Wrapper for all non-navbar content */
 .page-container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 1rem;
   min-height: calc(100vh - 100px); /* full viewport height minus navbar */

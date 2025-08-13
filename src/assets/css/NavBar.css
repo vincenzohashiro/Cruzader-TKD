@@ -5,7 +5,7 @@
   width: 100%;
   height: 60px;
   z-index: 1050;
-  background-color: transparent;
+  background-color: white;
 }
 
 .my-portal-navbar .nav-flex {
@@ -17,15 +17,16 @@
 }
 
 .my-portal-navbar .navbar-brand {
+    font-family: Audiowide, sans-serif;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
   text-align: center;
   font-size: 3rem;
-  font-family: monospace;
   color: red;
   pointer-events: auto;
+  
 }
 
 .my-portal-navbar .sleek-toggler {

@@ -1,147 +1,111 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../assets/css/Information.css";
+import "../assets/css/Contents.css";
 
-const infoData = [
+type Section = {
+  title: string;
+  description: string;
+  bullets?: string[];
+  image: string;
+  imageAlt?: string;
+};
+
+const sections: Section[] = [
   {
-    title: "Title 1",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    image: "https://via.placeholder.com/300x150?text=Image+1",
+    title: "Train with purpose",
+    description:
+      "Our programs focus on discipline, technique, and personal growth with a supportive community.",
+    bullets: [
+      "Beginner to advanced",
+      "Certified instructors",
+      "Flexible schedule",
+    ],
+    image: "/images/section-1.jpg",
   },
   {
-    title: "Title 2",
-    content: "Vivamus luctus urna sed urna ultricies ac tempor dui sagittis.",
-    image: "https://via.placeholder.com/300x150?text=Image+2",
+    title: "Strength in motion",
+    description:
+      "Improve agility, coordination, and confidence with drills designed to challenge and inspire.",
+    bullets: ["Core conditioning", "Speed & agility", "Form refinement"],
+    image: "/images/section-2.jpg",
   },
   {
-    title: "Title 3",
-    content:
-      "In condimentum facilisis porta. Sed nec diam eu diam mattis viverra.",
-    image: "https://via.placeholder.com/300x150?text=Image+3",
-  },
-  {
-    title: "Title 4",
-    content: "Cras ornare tristique elit. Vivamus vestibulum ntulla nec ante.",
-    image: "https://via.placeholder.com/300x150?text=Image+4",
-  },
-  {
-    title: "Title 5",
-    content: "Aliquam erat volutpat. Etiam ac erat ut enim maximus pretium.",
-    image: "https://via.placeholder.com/300x150?text=Image+5",
-  },
-  {
-    title: "Title 6",
-    content:
-      "Suspendisse potenti. Pellentesque habitant morbi tristique senectus.",
-    image: "https://via.placeholder.com/300x150?text=Image+6",
+    title: "Compete and excel",
+    description:
+      "Sharpen your skills for tournaments with strategy sessions and focused sparring.",
+    bullets: ["Sparring labs", "Scoring strategy", "Mental readiness"],
+    image: "/images/section-3.jpg",
   },
 ];
 
-const Contents: React.FC = () => {
-  const numCols = 2;
-  const numRows = Math.ceil(infoData.length / numCols);
-
-  const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [visibleRows, setVisibleRows] = useState<boolean[]>(
-    Array(numRows).fill(false)
-  );
+// simple fade observer hook built into this file
+function useFadeOnScroll(delay = 0, threshold = 0.2) {
+  const [inView, setInView] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    let prevScrollY = window.scrollY;
-    const triggeredRows = new Set<number>();
+    const el = ref.current;
+    if (!el) return;
 
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const scrollingDown = currentScrollY > prevScrollY;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-      rowRefs.current.forEach((row, i) => {
-        if (!row) return;
-
-        const rect = row.getBoundingClientRect();
-        const isInView = rect.top < window.innerHeight - 80 && rect.bottom > 0;
-
-        if (scrollingDown && isInView && !visibleRows[i]) {
-          triggeredRows.add(i);
-          setTimeout(() => {
-            setVisibleRows((prev) => {
-              const updated = [...prev];
-              updated[i] = true;
-              return updated;
-            });
-          }, i * 150);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          timeoutId = setTimeout(() => setInView(true), delay);
+        } else {
+          setInView(false);
         }
+      },
+      { threshold }
+    );
 
-        if (!scrollingDown && !isInView && visibleRows[i]) {
-          triggeredRows.delete(i);
-          setVisibleRows((prev) => {
-            const updated = [...prev];
-            updated[i] = false;
-            return updated;
-          });
-        }
-      });
-
-      prevScrollY = currentScrollY;
+    observer.observe(el);
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      observer.disconnect();
     };
+  }, [delay, threshold]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [visibleRows]);
+  return { ref, inView };
+}
 
-  const rows = Array.from({ length: numRows }, (_, i) =>
-    infoData.slice(i * numCols, i * numCols + numCols)
-  );
-
-  const getAlignClass = (idx: number) =>
-    idx % 2 === 0 ? "align-left" : "align-right";
-
+const Contents: React.FC = () => {
   return (
-    <div className="main-content">
-      {rows.map((row, rowIdx) => (
-        <div className="info-row-block" key={rowIdx}>
-          {/* Row title */}
-          <h3
-            className={`info-row-title fade-up-title${
-              visibleRows[rowIdx] ? " visible" : ""
+    <>
+      {sections.map((s, idx) => {
+        const { ref, inView } = useFadeOnScroll(idx * 150);
+        const isEven = idx % 2 === 1;
+
+        return (
+          <section
+            key={idx}
+            ref={ref}
+            className={`content-section${isEven ? " reverse" : ""} ${
+              inView ? "in-view" : ""
             }`}
           >
-            {`Section ${rowIdx + 1}`}
-          </h3>
-
-          {/* Cards grid */}
-          <div
-            className={`fade-up-row${visibleRows[rowIdx] ? " visible" : ""}`}
-            ref={(el) => {
-              rowRefs.current[rowIdx] = el;
-            }}
-          >
-            <div className="info-card-grid info-card-grid-2col">
-              {row.map((info, idx) => {
-                const cardIdx = rowIdx * numCols + idx;
-                return (
-                  <div
-                    className={`info-card ${getAlignClass(cardIdx)}`}
-                    key={cardIdx}
-                    tabIndex={0}
-                  >
-                    <div className="info-card-title">
-                      <h4>{info.title}</h4>
-                    </div>
-                    <div className="info-card-details show">
-                      <p>{info.content}</p>
-                      <img
-                        src={info.image}
-                        alt={info.title}
-                        className="info-img"
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="section-inner">
+              <div className="image-col">
+                <img src={s.image} alt={s.imageAlt || s.title} />
+              </div>
+              <div className="content-col">
+                <div className="content-wrap">
+                  <h2 className="content-title">{s.title}</h2>
+                  <p className="content-desc">{s.description}</p>
+                  {s.bullets && s.bullets.length > 0 && (
+                    <ul className="content-list">
+                      {s.bullets.map((b, i) => (
+                        <li key={i}>{b}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
-    </div>
+          </section>
+        );
+      })}
+    </>
   );
 };
 

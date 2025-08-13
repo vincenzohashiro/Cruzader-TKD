@@ -1,148 +1,120 @@
-import React, { useEffect, useRef, useState } from "react";
-import "../assets/css/Information.css";
+import React from "react";
+import { useRef, useEffect, useState } from "react";
+import "../assets/css/InformationCards.css";
 
-const infoData = [
+type InfoItem = {
+  title: string;
+  content: string;
+  image: string;
+};
+
+interface InfoCardsProps {
+  rowHeight?: string; // e.g. "100vh", "80vh", "auto"
+}
+
+const infoData: InfoItem[] = [
   {
     title: "Title 1",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    image: "https://via.placeholder.com/300x150?text=Image+1",
+    image: "https://via.placeholder.com/400x250?text=Image+1",
   },
   {
     title: "Title 2",
     content: "Vivamus luctus urna sed urna ultricies ac tempor dui sagittis.",
-    image: "https://via.placeholder.com/300x150?text=Image+2",
+    image: "https://via.placeholder.com/400x250?text=Image+2",
   },
   {
     title: "Title 3",
-    content:
-      "In condimentum facilisis porta. Sed nec diam eu diam mattis viverra.",
-    image: "https://via.placeholder.com/300x150?text=Image+3",
+    content: "In condimentum facilisis porta. Sed nec diam mattis viverra.",
+    image: "https://via.placeholder.com/400x250?text=Image+3",
   },
   {
     title: "Title 4",
     content: "Cras ornare tristique elit. Vivamus vestibulum ntulla nec ante.",
-    image: "https://via.placeholder.com/300x150?text=Image+4",
+    image: "https://via.placeholder.com/400x250?text=Image+4",
   },
   {
     title: "Title 5",
     content: "Aliquam erat volutpat. Etiam ac erat ut enim maximus pretium.",
-    image: "https://via.placeholder.com/300x150?text=Image+5",
+    image: "https://via.placeholder.com/400x250?text=Image+5",
   },
   {
     title: "Title 6",
-    content:
-      "Suspendisse potenti. Pellentesque habitant morbi tristique senectus.",
-    image: "https://via.placeholder.com/300x150?text=Image+6",
+    content: "Suspendisse potenti. Pellentesque habitant morbi tristique.",
+    image: "https://via.placeholder.com/400x250?text=Image+6",
   },
 ];
 
-const Information: React.FC = () => {
-  const numCols = 2;
-  const numRows = Math.ceil(infoData.length / numCols);
-
-  const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [visibleRows, setVisibleRows] = useState<boolean[]>(
-    Array(numRows).fill(false)
-  );
+function useFadeOnScroll(delay = 0, threshold = 0.2) {
+  const [inView, setInView] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    let prevScrollY = window.scrollY;
-    const triggeredRows = new Set<number>();
+    const el = ref.current;
+    if (!el) return;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const scrollingDown = currentScrollY > prevScrollY;
-
-      rowRefs.current.forEach((row, i) => {
-        if (!row) return;
-
-        const rect = row.getBoundingClientRect();
-        const isInView = rect.top < window.innerHeight - 80 && rect.bottom > 0;
-
-        if (scrollingDown && isInView && !visibleRows[i]) {
-          triggeredRows.add(i);
-          setTimeout(() => {
-            setVisibleRows((prev) => {
-              const updated = [...prev];
-              updated[i] = true;
-              return updated;
-            });
-          }, i * 150);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          timeoutId = setTimeout(() => setInView(true), delay);
+        } else {
+          setInView(false);
         }
+      },
+      { threshold }
+    );
 
-        if (!scrollingDown && !isInView && visibleRows[i]) {
-          triggeredRows.delete(i);
-          setVisibleRows((prev) => {
-            const updated = [...prev];
-            updated[i] = false;
-            return updated;
-          });
-        }
-      });
-
-      prevScrollY = currentScrollY;
+    observer.observe(el);
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      observer.disconnect();
     };
+  }, [delay, threshold]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [visibleRows]);
+  return { ref, inView };
+}
 
-  const rows = Array.from({ length: numRows }, (_, i) =>
-    infoData.slice(i * numCols, i * numCols + numCols)
+const InfoCards: React.FC<InfoCardsProps> = ({ rowHeight = "50vh" }) => {
+  const rows = Array.from({ length: infoData.length / 2 }, (_, i) =>
+    infoData.slice(i * 2, i * 2 + 2)
   );
 
-  const getAlignClass = (idx: number) =>
-    idx % 2 === 0 ? "align-left" : "align-right";
-
   return (
-    <div className="main-content">
-      {rows.map((row, rowIdx) => (
-        <div className="info-row-block" key={rowIdx}>
-          {/* Row title */}
-          <h3
-            className={`info-row-title fade-up-title${
-              visibleRows[rowIdx] ? " visible" : ""
-            }`}
-          >
-            {`Section ${rowIdx + 1}`}
-          </h3>
-
-          {/* Cards grid */}
+    <div className="info-grid">
+      {rows.map((pair, rowIdx) => {
+        const { ref, inView } = useFadeOnScroll(rowIdx * 150);
+        return (
           <div
-            className={`fade-up-row${visibleRows[rowIdx] ? " visible" : ""}`}
-            ref={(el) => {
-              rowRefs.current[rowIdx] = el;
-            }}
+            ref={ref}
+            key={rowIdx}
+            className={`info-row ${inView ? "in-view" : ""}`}
+            style={{ minHeight: rowHeight }}
           >
-            <div className="info-card-grid info-card-grid-2col">
-              {row.map((info, idx) => {
-                const cardIdx = rowIdx * numCols + idx;
-                return (
-                  <div
-                    className={`info-card ${getAlignClass(cardIdx)}`}
-                    key={cardIdx}
-                    tabIndex={0}
-                  >
-                    <div className="info-card-title">
-                      <h4>{info.title}</h4>
-                    </div>
-                    <div className="info-card-details show">
-                      <p>{info.content}</p>
-                      <img
-                        src={info.image}
-                        alt={info.title}
-                        className="info-img"
-                      />
-                    </div>
+            {pair.map((item, idx) => {
+              const globalIndex = rowIdx * 2 + idx;
+              const alignClass =
+                globalIndex % 2 === 0 ? "align-left" : "align-right";
+              return (
+                <article
+                  key={globalIndex}
+                  className={`info-card ${alignClass}`}
+                >
+                  <div className="info-card-text">
+                    <h3 className="info-card-title">{item.title}</h3>
+                    <p className="info-card-content">{item.content}</p>
                   </div>
-                );
-              })}
-            </div>
+                  <div className="info-card-media">
+                    <img src={item.image} alt={item.title} />
+                  </div>
+                </article>
+              );
+            })}
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
 
-export default Information;
+export default InfoCards;

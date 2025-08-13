@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import "../assets/css/NavBar.css";
-import ShinyText from "../components/ShinyText";
 
 const NavBarInner: React.FC = () => {
   const ref = useRef<HTMLElement | null>(null);
@@ -34,14 +33,7 @@ const NavBarInner: React.FC = () => {
       aria-label="Main navigation"
     >
       <div className="container-fluid nav-flex">
-        <a className="navbar-brand mx-auto" href="#">
-          <ShinyText
-            text="Cruzader Taekwondo"
-            disabled={false}
-            speed={3}
-            className="custom-class"
-          />
-        </a>
+        <a className="navbar-brand mx-auto">Cruzader TKD</a>
 
         <button
           className="navbar-toggler sleek-toggler"
