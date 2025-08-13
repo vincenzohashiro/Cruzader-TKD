@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
    
-  base: '/Cruzader-TKD/' // Set the base path for deployment
+  base: 'https://github.com/vincenzohashiro/Cruzader-TKD/' // Set the base path for deployment
   // If you are deploying to a custom domain, you might not need this line
   // base: 'https://yourdomain.com/Cruzader-TKD/'
 })
