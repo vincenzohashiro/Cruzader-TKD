@@ -36,7 +36,7 @@ const infoData = [
   },
 ];
 
-const Information: React.FC = () => {
+const Contents: React.FC = () => {
   const numCols = 2;
   const numRows = Math.ceil(infoData.length / numCols);
 
@@ -145,4 +145,4 @@ const Information: React.FC = () => {
   );
 };
 
-export default Information;
+export default Contents;

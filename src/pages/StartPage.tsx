@@ -1,14 +1,22 @@
 import React from "react";
 import Information from "../components/Information";
 import TitleHeader from "../components/TitleHeader";
+import Footer from "../components/Footer";
+import NavBar from "../components/NavBar";
+import Contents from "../components/Contents";
 
 const StartPage: React.FC = () => {
   return (
     <>
-      <main>
-        <TitleHeader /> {/* Loads immediately with fade-in */}
-        <Information /> {/* Scroll-reveals each row below */}
-      </main>
+      <NavBar />
+      <TitleHeader />
+      <div className="page-container">
+        <main>
+          <Information />
+        </main>
+      </div>
+      <Contents />
+      <Footer />
     </>
   );
 };

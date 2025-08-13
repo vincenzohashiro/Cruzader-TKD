@@ -1,15 +1,14 @@
-import "./App.css";
-import NavBar from "./components/NavBar";
+import React from "react";
 import StartPage from "./pages/StartPage";
+import "./App.css";
+import ShinyText from "./components/ShinyText";
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
-      <main style={{ paddingTop: "56px" }}>
-        <StartPage />
-      </main>
+      <StartPage />
     </>
   );
-}
+};
 
 export default App;

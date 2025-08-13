@@ -9,12 +9,14 @@
   transform: none;
 }
 
+
+
 /* Main content container for centering */
 .main-content {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  margin-top: 500px;
+
   padding: 0;
   box-sizing: border-box;
 }

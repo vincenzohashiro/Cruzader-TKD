@@ -1,49 +1,40 @@
-/* Fade-in animation for TitleHeader */
-.fade-in {
-  opacity: 0;
-  transform: translateY(-30px);
-  animation: fadeInTitle 0.8s ease-out forwards;
-}
-
-@keyframes fadeInTitle {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-/* Outer container for TitleHeader for neat layout */
-.title-header-container {
+/* Outer container fills viewport and centers vertically */
+.title-header-outer {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column; /* scroll arrow stays below */
   align-items: center;
   justify-content: center;
-  text-align: center;
-  width: 100%;
-  padding: 2rem 1rem 0;
+  height: 100vh;
+  position: relative;
+  padding: 0;
   box-sizing: border-box;
-  gap: 2rem;
+  width: 100%;
 }
-/* TitleHeader styles */
+
+/* Main container for title + logo */
 .title-header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  gap: 2rem;
   max-width: 1200px;
-  margin: 0 auto 2rem auto;
+  width: 100%;
   padding: 2rem 1rem 0 1rem;
   box-sizing: border-box;
 }
 
+/* Text column */
 .title-header-content {
   flex: 1 1 0;
-  text-align: center;
+  text-align: left;
+  font-family: Audiowide, sans-serif;
 }
 
 .title-header-content h2 {
   margin: 0 0 0.5rem 0;
   font-size: 2.5rem;
   color: #1a1a1a;
+
 }
 
 .title-header-content p {
@@ -52,6 +43,7 @@
   color: #444;
 }
 
+/* Logo */
 .title-header-logo {
   width: 120px;
   height: 120px;
@@ -59,18 +51,71 @@
   margin-left: 2rem;
 }
 
+/* Scroll arrow */
+.scroll-indicator {
+  font-size: 2rem;
+  margin-top: 3rem;
+  animation: bounce 1.5s infinite;
+  cursor: pointer;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* Tablet and below */
+@media (max-width: 900px) {
+  .title-header-content h2 {
+    font-size: 2rem;
+  }
+  .title-header-content p {
+    font-size: 1.1rem;
+  }
+  .title-header-logo {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Mobile layout */
 @media (max-width: 700px) {
   .title-header-container {
-    flex-direction: column;
+    flex-direction: column; /* stack vertically */
     align-items: center;
-    padding: 1rem 0.5rem 0 0.5rem;
+    text-align: center;
+    gap: 1rem;
   }
+
   .title-header-content {
     text-align: center;
   }
+
   .title-header-logo {
-    margin: 1rem 0 0 0;
+    margin: 0;
     width: 80px;
     height: 80px;
+  }
+
+  .title-header-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .title-header-content p {
+    font-size: 1rem;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 400px) {
+  .title-header-content h2 {
+    font-size: 1.5rem;
+  }
+  .title-header-content p {
+    font-size: 0.9rem;
+  }
+  .title-header-logo {
+    width: 70px;
+    height: 70px;
   }
 }

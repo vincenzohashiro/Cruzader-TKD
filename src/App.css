@@ -1,13 +1,27 @@
+@font-face {
+  font-family: "Bulltoad Peace";
+  src: url("./assets/fonts/Bulltoad-Peace.ttf") format("truetype");
+}
 
 
+/* Remove flex from body */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  color: #333;
-  background: green;
-  display: flex;
-  justify-content: center;
+  color: black;
+  background: white;
+  
 }
+
+/* Wrapper for all non-navbar content */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  min-height: calc(100vh - 100px); /* full viewport height minus navbar */
+  box-sizing: border-box;
+  background-color: red;
+}
+
 
 .logo {
   height: 6em;
