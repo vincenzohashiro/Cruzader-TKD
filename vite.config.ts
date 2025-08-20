@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // Replace with your repo name
 export default defineConfig({
-  base: '/Cruzader-TKD/',
+  base: '/',
   plugins: [react()],
 })
