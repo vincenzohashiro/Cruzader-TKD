@@ -1,46 +1,61 @@
-import React from "react";
-import {
-  FaFacebook,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedin,
-  FaPhone,
-  FaEnvelope,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import React, { useRef, useEffect, useState } from "react";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import bgImage from "../assets/images/BG.jpg";
 import "../assets/css/Contacts.css";
+
+// ✅ simple fade observer hook
+function useFadeOnScroll(delay = 0, threshold = 0.2) {
+  const [inView, setInView] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          timeoutId = setTimeout(() => setInView(true), delay);
+        } else {
+          setInView(false);
+        }
+      },
+      { threshold }
+    );
+
+    observer.observe(el);
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, [delay, threshold]);
+
+  return { ref, inView };
+}
 
 interface ContactsProps {
   logoUrl: string;
 }
 
-const Contacts: React.FC<ContactsProps> = ({ logoUrl }) => {
+const Contacts: React.FC<ContactsProps> = () => {
+  const { ref, inView } = useFadeOnScroll(0, 0.2); // trigger once visible
+
   return (
-    <section className="contacts-page">
-      {/* Logo */}
-      <div className="contacts-logo">
-        <img src={logoUrl} alt="Company Logo" />
+    <section
+      ref={ref}
+      className={`contacts-page fade-up ${inView ? "visible" : ""}`}
+    >
+      {/* Centered image container */}
+      <div className="contacts-center">
+        <img src={bgImage} alt="Contact Visual" className="contacts-image" />
       </div>
 
-      {/* Contact Info */}
-      <div className="contacts-info">
-        <h2>Contact Us</h2>
-        <p>
-          <FaMapMarkerAlt className="icon" /> 123 Main Street, Cityville,
-          Country
-        </p>
-        <p>
-          <FaPhone className="icon" /> +1 (555) 123-4567
-        </p>
-        <p>
-          <FaEnvelope className="icon" /> info@example.com
-        </p>
-      </div>
-
-      {/* Social Media Links */}
+      {/* Socials pinned to bottom */}
       <div className="contacts-social">
         <a
-          href="https://facebook.com"
+          href="https://www.facebook.com/CRUZADERSTKD"
           target="_blank"
           rel="noopener noreferrer"
         >

@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import "../assets/css/NavBar.css";
 
 const NavBarInner: React.FC = () => {
   const ref = useRef<HTMLElement | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -16,10 +17,26 @@ const NavBarInner: React.FC = () => {
 
     setHeightVar();
     window.addEventListener("resize", setHeightVar);
-
     return () => {
       window.removeEventListener("resize", setHeightVar);
       document.documentElement.style.removeProperty("--nav-height");
+    };
+  }, []);
+
+  useEffect(() => {
+    // Sync open/close state with Bootstrap Offcanvas events
+    const offcanvasEl = document.getElementById("offcanvasDarkNavbar");
+    if (!offcanvasEl) return;
+
+    const handleShow = () => setMenuOpen(true);
+    const handleHide = () => setMenuOpen(false);
+
+    offcanvasEl.addEventListener("show.bs.offcanvas", handleShow);
+    offcanvasEl.addEventListener("hide.bs.offcanvas", handleHide);
+
+    return () => {
+      offcanvasEl.removeEventListener("show.bs.offcanvas", handleShow);
+      offcanvasEl.removeEventListener("hide.bs.offcanvas", handleHide);
     };
   }, []);
 
@@ -32,18 +49,23 @@ const NavBarInner: React.FC = () => {
     >
       <div className="container-fluid nav-flex">
         <a className="navbar-brand mx-auto" href="#title-header">
-          Cruzader TKD
+          Cruzaders TKD
         </a>
 
         <button
-          className="navbar-toggler sleek-toggler"
+          className={`navbar-toggler sleek-toggler ${menuOpen ? "open" : ""}`}
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasDarkNavbar"
           aria-controls="offcanvasDarkNavbar"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon" />
+          {/* custom hamburger */}
+          <span className="hamburger" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
         </button>
 
         <div

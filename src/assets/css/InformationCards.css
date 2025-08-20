@@ -1,70 +1,292 @@
 .info-grid {
   display: flex;
   flex-direction: column;
+margin-top: 10rem;
 }
 
 .info-row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-  padding: 0 2rem; /* horizontal only — no vertical space */
+  padding: 0 2rem;
+  margin-top: 50px;
+  position: relative; /* so expanded cards can be positioned absolutely */
 }
 
-.info-row.in-view {
-  opacity: 1;
-  transform: none;
+.info-card-wrapper {
+  position: relative; /* so expanded card is absolute to this cell */
 }
 
 .info-card {
-  background: #0e0f10;
+  background: #1a1b1f url('https://www.transparenttextures.com/patterns/carbon-fibre.png') repeat;
   border-radius: 12px;
-  padding: 10rem;
+  padding: 2rem;
   color: #e9ecef;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  
+  text-align: left;
+  height: 100%;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, z-index 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
 }
 
-.info-card.align-left {
-  justify-self: start;
-}
 
-.info-card.align-right {
-  justify-self: end;
-}
-
-.info-card-title {
-  font-size: 1.5rem;
-  margin: 0 0 1rem;
-}
-
-.info-card-content {
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.info-card-media img {
-  width: 100%;
-  height: auto;
+.expand-btn {
+  background-color: transparent;   /* transparent background */
+  border: 2px solid black;        /* black border */
+  color: red;                     /* red text */
+  padding: 0.5rem 1.5rem;
   border-radius: 8px;
-  object-fit: cover;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  margin-top: 50px;
 }
+
+/* Optional hover effect */
+.expand-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: red;
+}
+
+/*FULLSCREEN MODE*/
+
+/* Fullscreen overlay when a card is expanded */
+/* Modal overlay */
+.card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto; /* scrollable overlay */
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+/* Card inside overlay */
+.card-overlay .info-card {
+  width: 90%;
+  max-width: 50rem;
+  max-height: 90vh;       /* limit height for scrolling */
+  background: #0e0f10;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+/* Scrollable body inside the modal */
+.info-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;       /* scroll content if too tall */
+  flex: 1;                /* take available space */
+  padding-right: 0.5rem;  /* avoid scrollbar cutting content */
+  box-sizing: border-box;
+  padding: 1.5rem;
+}
+
+/* Main Image */
+.main-image-container {
+  width: 100%;
+  max-height: 60vh;
+  flex-shrink: 0;          /* don't shrink the main image */
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Thumbnail Row */
+.thumbnail-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  margin-top: 0.5rem;
+  flex-shrink: 0;         /* keep visible and not scroll away */
+}
+
+.thumbnail-image {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s;
+}
+
+.thumbnail-image:hover {
+  border: 2px solid red;
+}
+
+/* Google Map container scales */
+.map-container iframe {
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+  flex-shrink: 0;          /* map stays visible */
+}
+
+.map-container.disabled iframe {
+  pointer-events: none;  /* disables interaction */
+  filter: grayscale(30%) brightness(0.9); /* optional: make it look inactive */
+}
+
+.map-container.interactive iframe {
+  pointer-events: auto;  /* enable interaction */
+}
+
+
+/* Footer button fixed at bottom of card */
+.info-card-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  flex-shrink: 0;           /* never shrink */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-overlay .info-card {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .main-image-container {
+    max-height: 40vh;
+  }
+
+  .thumbnail-image {
+    width: 60px;
+    height: 45px;
+  }
+
+  .map-container iframe {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-image-container {
+    max-height: 30vh;
+  }
+
+  .thumbnail-image {
+    width: 50px;
+    height: 35px;
+  }
+
+  .map-container iframe {
+    height: 250px;
+  }
+}
+
+
+/*FULLSCREEN MODE ENDS HERE*/
+
+.info-card-title-container .info-card-title {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 2rem;       /* customize */
+  font-weight: bold;
+  color: #ffffffea;
+  line-height: 1.2;      /* keep smaller to avoid pushing content */
+  text-shadow: 
+    1px 1px 3px rgba(0,0,0,0.9), 
+    -1px -1px 3px rgba(0,0,0,0.6);
+  text-align: left;      /* ensure left alignment */
+}
+
+.info-card-content-container .info-card-content {
+  font-family: monospace;
+  font-size: 1.5rem;     /* customize */
+  color: #cccccc;
+  line-height: 1.5;
+  margin: 0;
+  margin-top: 20px;        
+  margin-bottom: 1rem;   /* rely on container spacing instead */
+  text-align: left;       /* ensure left alignment */
+  text-transform: uppercase;
+}
+
+
+
+.info-card-media {
+  margin-top: auto;   /* pushes media to bottom */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Media section stacked below content and centered */
+.info-card-media {
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* stack images/videos/map vertically */
+  align-items: center;
+  margin-top: auto; /* pushes it to the bottom */
+}
+
+.info-card-media img,
+.info-card-media video {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+/* Row of 3 images inside each card */
+.card-images-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-images-row img {
+  width: calc((100% - 1rem) / 3);
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 .info-row-wrapper {
   margin-bottom: 3rem;
 }
 
 .info-section-title {
   text-align: center;
-  font-size: 2rem;
+  font-size: clamp(4rem, 5vw, 4rem); /* scales between 1.5rem and 3.5rem based on viewport */
+  margin-top: 50px;
   margin-bottom: 1.5rem;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  color: #ffffffea;
+  line-height: 1.2;      /* keep smaller to avoid pushing content */
+    text-shadow: 
+    1px 1px 3px rgba(0,0,0,0.9), 
+    -1px -1px 3px rgba(0,0,0,0.6);
 }
 
 .info-section-title.in-view {
@@ -72,10 +294,49 @@
   transform: translateY(0);
 }
 
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .info-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .info-row {
     grid-template-columns: 1fr;
-    min-height: auto !important; /* override rowHeight on mobile */
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .info-card {
+    height: auto;
+  }
+
+  .card-images-row img {
+    width: 30%;
+    height: auto;
+  }
+  
+
+}
+
+@media (max-width: 600px) {
+  .info-card {
+    padding: 1.5rem;
+  }
+
+  .info-card-title {
+    font-size: 1.1rem;
+  }
+
+  .info-card-content {
+    font-size: 0.9rem;
+  }
+
+ 
+
+  .card-images-row img {
+    width: 30%;
+    height: auto;
   }
 }

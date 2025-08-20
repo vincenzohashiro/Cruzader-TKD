@@ -1,14 +1,42 @@
 /* Outer container fills viewport and centers vertically */
 .title-header-outer {
   display: flex;
-  flex-direction: column; /* scroll arrow stays below */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
-  padding: 0;
+  padding: 1rem;
   box-sizing: border-box;
   width: 100%;
+  overflow: hidden;
+
+  /* Background slideshow */
+  background-size: cover;
+  background-position: center;
+  animation: bgSlideshow 24s infinite;
+}
+
+/* Dark overlay for readability */
+.title-header-outer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5); /* dark tint */
+  z-index: 0;
+}
+
+.title-header-outer > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes bgSlideshow {
+  0%   { background-image: url("/images/bg1.jpg"); }
+  25%  { background-image: url("/images/bg2.jpg"); }
+  50%  { background-image: url("/images/bg3.jpg"); }
+  75%  { background-image: url("/images/bg4.jpg"); }
+  100% { background-image: url("/images/bg1.jpg"); }
 }
 
 /* Main container for title + logo */
@@ -16,37 +44,60 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
-  max-width: 1200px;
+  gap: 3rem;
   width: 100%;
-  padding: 2rem 1rem 0 1rem;
+  max-width: 1200px;
+  padding: 2rem;
   box-sizing: border-box;
+  margin-top: 80px;
+
+  /* Frosted glass effect */
+    background: rgba(255, 255, 255, 0.096); /* lighter for black text */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  z-index: 1;
 }
+
+
 
 /* Text column */
 .title-header-content {
-  flex: 1 1 0;
+  flex: 1;
   text-align: left;
   font-family: Audiowide, sans-serif;
 }
 
 .title-header-content h2 {
-  margin: 0 0 0.5rem 0;
-  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+  font-size: clamp(1.8rem, 4vw, 4rem);  /* fluid scaling */
   color: #1a1a1a;
-
 }
 
 .title-header-content p {
   margin: 0;
-  font-size: 1.2rem;
-  color: #444;
+  font-size: clamp(1rem, 2vw, 1.5rem);  /* fluid scaling */
+   color: #fff; /* white text */
+  text-shadow: 
+    1px 1px 3px rgba(0,0,0,0.9), 
+    -1px -1px 3px rgba(0,0,0,0.6);
+}
+
+.hashtags {
+    color: #fff; /* white text */
+  -webkit-text-stroke: 0.5px rgba(0,0,0,0.8); /* dark outline */
+  font-weight: light !important;
+  margin-top: 2rem !important;
 }
 
 /* Logo */
 .title-header-logo {
-  width: 300px;
-  height: 300px;
+  max-width: 30vw;   /* scales with screen width */
+  max-height: 40vw;
+  width: auto;
+  height: auto;
   object-fit: contain;
   margin-left: 2rem;
 }
@@ -54,7 +105,7 @@
 /* Scroll arrow */
 .scroll-indicator {
   font-size: 2rem;
-  margin-top: 10rem;
+  margin-top: 4rem;
   animation: bounce 1.5s infinite;
   cursor: pointer;
   color: red;
@@ -65,17 +116,19 @@
   50% { transform: translateY(8px); }
 }
 
+/* Gradient animation */
+
+
 /* Tablet and below */
 @media (max-width: 900px) {
-  .title-header-content h2 {
-    font-size: 2rem;
-  }
-  .title-header-content p {
-    font-size: 1.1rem;
+  .title-header-container {
+    gap: 2rem;
+    padding: 1.5rem;
   }
   .title-header-logo {
-    width: 100px;
-    height: 100px;
+    max-width: 40vw;
+    max-height: 40vw;
+    margin-left: 0;
   }
 }
 
@@ -85,7 +138,8 @@
     flex-direction: column; /* stack vertically */
     align-items: center;
     text-align: center;
-    gap: 1rem;
+    gap: 1.5rem;
+    margin-top: 50px;
   }
 
   .title-header-content {
@@ -93,30 +147,23 @@
   }
 
   .title-header-logo {
+    max-width: 60vw;
+    max-height: 60vw;
     margin: 0;
-    width: 80px;
-    height: 80px;
-  }
-
-  .title-header-content h2 {
-    font-size: 1.8rem;
-  }
-
-  .title-header-content p {
-    font-size: 1rem;
   }
 }
 
 /* Very small phones */
 @media (max-width: 400px) {
   .title-header-content h2 {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
   }
   .title-header-content p {
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
   }
   .title-header-logo {
-    width: 70px;
-    height: 70px;
+    max-width: 70vw;
+    max-height: 70vw;
   }
 }
+

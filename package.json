@@ -4,14 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://vincenzohashiro.github.io/Cruzader-TKD",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
-  },
+ "scripts": {
+  "dev": "vite",
+  "build": "tsc -b && vite build",
+  "lint": "eslint .",
+  "preview": "vite preview",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d dist"
+},
+
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.7",

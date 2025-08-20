@@ -1,71 +1,149 @@
 .contacts-page {
-  min-height: 100vh; /* Full screen height */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center vertically */
-  align-items: center;     /* Center horizontally */
-  padding: 2rem;
-  background: linear-gradient(to bottom right, #f9f9f9, #eaeaea);
+  justify-content: space-between; /* image in middle, socials at bottom */
+  align-items: center;
   text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.contacts-logo img {
-  max-width: 300px;
+/* Dark overlay to improve readability */
+.contacts-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4); /* adjust darkness */
+  z-index: 0;
+}
+
+.contacts-page > * {
+  position: relative;
+  z-index: 1; /* ensure content is above overlay */
+}
+
+.contacts-center {
+  flex: 1; /* occupy available vertical space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+}
+
+.contacts-image {
+  width: 80%;          /* scales with container */
+  max-width: 1200px;    /* big enough on desktop */
+  min-width: 180px;    /* not too tiny on small screens */
   height: auto;
-  margin-bottom: 2rem;
+  border-radius: 12px;
+  object-fit: contain; /* ensures full image is visible */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  background: rgba(255,255,255,0.1); /* optional subtle glass frame */
+  backdrop-filter: blur(5px);        /* enhance readability */
 }
 
-.contacts-info {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-.contacts-info .icon {
-  color: #0073e6;
-  margin-right: 0.5rem;
-}
-
+/* Social links neatly at bottom */
 .contacts-social {
   display: flex;
-  gap: 1.5rem;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 20px;
+  margin-bottom: 2rem; /* spacing from bottom */
+  background: rgba(255, 255, 255, 0.2); /* frosted glass effect */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 1rem 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in forwards;
+  animation-delay: 0.5s;
 }
 
 .contacts-social a {
   font-size: 2rem;
-  color: #555;
-  transition: color 0.3s ease;
+  color: rgba(255, 0, 0, 0.85);
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1s ease forwards;
 }
 
+.contacts-social a:nth-child(1) { animation-delay: 0.3s; }
+.contacts-social a:nth-child(2) { animation-delay: 0.6s; }
+.contacts-social a:nth-child(3) { animation-delay: 0.9s; }
+.contacts-social a:nth-child(4) { animation-delay: 1.2s; }
+
 .contacts-social a:hover {
-  color: #0073e6;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.8);
+}
+
+/* Fade up reusable class */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Keyframes for fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .contacts-logo img {
-    max-width: 200px;
-  }
-
-  .contacts-info {
-    font-size: 1rem;
-  }
-
   .contacts-social a {
     font-size: 1.5rem;
+  }
+    .contacts-social {
+    margin-top: 0;
   }
 }
 
 @media (max-width: 480px) {
-  .contacts-page {
-    padding: 1rem;
+  .contacts-image {
+    max-width: 500px; /* smaller image on phones */
   }
 
-  .contacts-logo img {
-    max-width: 150px;
+  .contacts-social {
+    margin-bottom: 30rem;
   }
+}
 
-  .contacts-info {
-    font-size: 0.9rem;
+/* Tablet */
+@media (max-width: 1024px) {
+  .contacts-image {
+    max-width: 500px;
+    width: 70%;
+  }
+    .contacts-social {
+    margin-top: 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .contacts-image {
+    max-width: 250px;
+    width: 90%;
+  }
+    .contacts-social {
+    margin-top: 0;
   }
 }

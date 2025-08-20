@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/TitleHeader.css";
-import logoImg from "../assets/images/Logo.jpg";
+import logoImg from "../assets/images/Logo2.jpg";
 import ShinyText from "../components/ShinyText";
 
 const TitleHeader: React.FC = () => {
@@ -20,30 +20,35 @@ const TitleHeader: React.FC = () => {
 
   return (
     <div className="title-header-outer">
-      <header className={`title-header-container${show ? " fade-in" : ""}`}>
-        <div className="title-header-content">
-          <h2>
-            {" "}
-            <ShinyText
-              text="Cruzader Taekwondo"
-              disabled={false}
-              speed={3}
-              className="custom-class"
-            />
-          </h2>
+      <section className="animated-bg">
+        <header className={`title-header-container${show ? " fade-in" : ""}`}>
+          <div className="title-header-content">
+            <h2>
+              {" "}
+              <ShinyText
+                text="Cruzaders Taekwondo"
+                disabled={false}
+                speed={3}
+                className="custom-class"
+              />
+            </h2>
+            <p>
+              Welcome to Cruzaders TKD, a passionate taekwondo team founded by
+              the Cruz-Herrera siblings and led by head coach Francisco
+              Cruz-Herrera. Start your taekwondo journey with us!
+            </p>
+            <p className="hashtags">
+              #Cruzaders #TatakCruzaders #YourTaekwondoJourney
+            </p>
+          </div>
 
-          <p>
-            Discover more about our Taekwondo club, our philosophy, and what we
-            offer to students of all ages and skill levels.
-          </p>
-        </div>
-        <img
-          className="title-header-logo"
-          src={logoImg}
-          alt="Cruzader TKD Logo"
-        />
-      </header>
-
+          <img
+            className="title-header-logo"
+            src={logoImg}
+            alt="Cruzader TKD Logo"
+          />
+        </header>
+      </section>
       <div className="scroll-indicator" onClick={handleScrollClick}>
         ▼
       </div>

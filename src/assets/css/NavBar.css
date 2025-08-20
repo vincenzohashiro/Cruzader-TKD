@@ -16,17 +16,82 @@
   justify-content: center;
 }
 
+/* Preserve your navbar height */
+.my-portal-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 1050;
+  background-color: white;
+}
+
+/* Keep .sleek-toggler size from your original styles */
+.my-portal-navbar .sleek-toggler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 48px; /* safe size for mobile */
+  height: 40px;
+  border: none;
+  background: transparent; /* keep navbar background, not button's */
+}
+
+/* Hamburger container */
+.my-portal-navbar .sleek-toggler .hamburger {
+  position: relative;
+  width: 24px;
+  height: 18px;
+}
+
+/* Hamburger bars */
+.my-portal-navbar .sleek-toggler .hamburger span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: red; /* 🔴 red bars */
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Bar positions */
+.my-portal-navbar .sleek-toggler .hamburger span:nth-child(1) { top: 0; }
+.my-portal-navbar .sleek-toggler .hamburger span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.my-portal-navbar .sleek-toggler .hamburger span:nth-child(3) { bottom: 0; }
+
+/* Animate to "X" when open */
+.my-portal-navbar .sleek-toggler.open .hamburger span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+.my-portal-navbar .sleek-toggler.open .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+.my-portal-navbar .sleek-toggler.open .hamburger span:nth-child(3) {
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+
 .my-portal-navbar .navbar-brand {
-    font-family: Audiowide, sans-serif;
+  font-family: Audiowide, sans-serif;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
   text-align: center;
-  font-size: 3rem;
-  color: red;
+  font-size: 2rem;
+  color: #8e0a0a;
   pointer-events: auto;
-  
+    -webkit-text-stroke: 1px black;
+text-shadow: -5px 4px 5px #353535; /* ✅ horizontal, vertical, blur, color */
 }
 
 .my-portal-navbar .sleek-toggler {
@@ -38,8 +103,9 @@
   width: 180px;
   height: 40px;
   border-radius: 20px;
-  background: #222;
-  border: none;
+  background: white;
+  border-color: #222;
+  border-style: solid;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,6 +115,88 @@
 .my-portal-navbar .sleek-toggler .navbar-toggler-icon {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+/* Target your specific offcanvas by ID or class if needed */
+.offcanvas {
+  width: 50% !important; /* overrides default Bootstrap width */
+  max-width: 50%;        /* optional: enforce maximum width */
+}
+
+
+.offcanvas-body {
+  position: relative; /* for pseudo-element overlay */
+  background: #1a1b1f url('https://www.transparenttextures.com/patterns/carbon-fibre.png') repeat;
+  padding: 2rem 2rem;
+  overflow: hidden; /* ensure overlay doesn't escape */
+}
+
+/* Frosted glass overlay */
+.offcanvas-body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px); /* blur effect */
+  background-color: rgba(255, 255, 255, 0.05); /* subtle light tint */
+  z-index: 0; /* behind content */
+}
+
+/* Ensure nav content is above the overlay */
+.offcanvas-body ul.navbar-nav {
+  position: relative;
+  z-index: 1;
+}
+/* Offcanvas nav link hover/active effect */
+.offcanvas .nav-link {
+  color: #e9ecef;            /* default text color */
+  transition: color 0.3s ease;
+}
+
+.offcanvas .nav-link:hover,
+.offcanvas .nav-link:focus,
+.offcanvas .nav-link:active {
+  color: red;                /* color on hover/press */
+}
+
+/* Navbar list */
+.navbar-nav {
+  display: flex;
+  flex-direction: column; /* vertical stack */
+  gap: 1rem; /* spacing between links */
+}
+
+/* Individual nav links */
+.navbar-nav .nav-link {
+  color: #e9ecef;          /* link color */
+  font-family: 'Audiowide', sans-serif;
+  font-size: 1.5rem;       /* adjust size */
+  font-weight: bold;
+  text-transform: uppercase; /* all caps */
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Hover effect */
+.navbar-nav .nav-link:hover {
+  color: red;               /* hover color */
+  transform: scale(1.05);   /* subtle zoom */
+}
+
+/* Active section link */
+.navbar-nav .nav-link.active {
+  color: red;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
+    font-size: 1.2rem;
+  }
 }
 
 /* Responsive tweaks */

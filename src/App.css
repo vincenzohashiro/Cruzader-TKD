@@ -3,13 +3,20 @@
   src: url("./assets/fonts/Bulltoad-Peace.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "GoldenGate-Gothic";
+  src: url("./assets/fonts/GoldenGate-Gothic Regular.otf") format("opentype");
+}
 
 /* Remove flex from body */
 html, body {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
+  font-family: "GoldenGate-Gothic", sans-serif;
+  background: linear-gradient(135deg, #0e0f10 0%, #222328 25%, #0e0f10 50%, #222328 75%, #0e0f10 100%);
 }
+
 
 /* Only TitleHeader is forced fullscreen now */
 #title-header {
@@ -38,6 +45,52 @@ html, body {
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
+
+/* Webkit browsers (Chrome, Edge, Safari) */
+.info-card-body::-webkit-scrollbar {
+  width: 10px;              /* scrollbar width */
+}
+
+.info-card-body::-webkit-scrollbar-track {
+  background: #1a1a1a;       /* track color */
+  border-radius: 10px;
+}
+
+.info-card-body::-webkit-scrollbar-thumb {
+  background: #ff0000;       /* scrollbar color (red in your theme) */
+  border-radius: 10px;
+  border: 2px solid #1a1a1a; /* adds gap effect */
+}
+
+.info-card-body::-webkit-scrollbar-thumb:hover {
+  background: #ff4d4d;       /* hover color */
+}
+
+/* Firefox */
+.info-card-body {
+  scrollbar-width: thin;         /* "auto" | "thin" */
+  scrollbar-color: #ff0000 #1a1a1a; /* thumb color | track color */
+}
+
+.card-overlay {
+  overflow-y: scroll;  /* always scrollable vertically */
+}
+
+/* Optional: customize scrollbar appearance */
+.card-overlay::-webkit-scrollbar {
+  width: 12px;         /* width of scrollbar */
+}
+
+.card-overlay::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+  border-radius: 6px;
+}
+
+.card-overlay::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 6px;
+}
+
 
 @keyframes logo-spin {
   from {

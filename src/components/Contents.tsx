@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../assets/css/Contents.css";
+import c1 from "../assets/images/c1.jpg";
+import c2 from "../assets/images/c2.jpg";
+import c3 from "../assets/images/c3.jpg";
 
 type Section = {
   title: string;
   description: string;
   bullets?: string[];
-  image: string;
+  images?: string[];
   imageAlt?: string;
 };
 
@@ -19,21 +22,21 @@ const sections: Section[] = [
       "Certified instructors",
       "Flexible schedule",
     ],
-    image: "/images/section-1.jpg",
+    images: [c1],
   },
   {
     title: "Strength in motion",
     description:
       "Improve agility, coordination, and confidence with drills designed to challenge and inspire.",
     bullets: ["Core conditioning", "Speed & agility", "Form refinement"],
-    image: "/images/section-2.jpg",
+    images: [c2],
   },
   {
     title: "Compete and excel",
     description:
       "Sharpen your skills for tournaments with strategy sessions and focused sparring.",
     bullets: ["Sparring labs", "Scoring strategy", "Mental readiness"],
-    image: "/images/section-3.jpg",
+    images: [c3],
   },
 ];
 
@@ -86,7 +89,7 @@ const Contents: React.FC = () => {
           >
             <div className="section-inner">
               <div className="image-col">
-                <img src={s.image} alt={s.imageAlt || s.title} />
+                <img src={s.images?.[0]} alt={s.imageAlt || s.title} />
               </div>
               <div className="content-col">
                 <div className="content-wrap">
