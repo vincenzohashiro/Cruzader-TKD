@@ -39,11 +39,10 @@ const infoData: InfoItem[] = [
     images: [Imus, Paco1, Paco2, Paco3],
   },
   {
-    title: "Robinsons General Trias",
-    content:
-      "ROBINSONS PLACE GEN TRIAS, A. SORIANO HIGHWAY, DIVERSION ROAD, GENERAL TRIAS, CAVITE",
+    title: "Cruzaders TKD SOMO - A Vista Mall",
+    content: "Vista Mall, SOMO - A, Molino - Paliparan Rd, Bacoor, Cavite",
     mapUrl:
-      "https://www.google.com/maps/embed?pb=!4v1755418860636!6m8!1m7!1sRCYt3AupQbp2TDz1Hm5oiw!2m2!1d14.39598335974963!2d120.8658600734971!3f347.27166161605265!4f2.7339161725633687!5f0.7820865974627469",
+      "https://www.google.com/maps/embed?pb=!4v1755676432030!6m8!1m7!1sLqIGsyGqO3qUrvkNZJgQAw!2m2!1d14.38533640150141!2d120.9795752482318!3f209.39480442053878!4f10.588966685049456!5f0.4000000000000002",
     images: [GenTri, Paco1, Paco2, Paco3],
   },
   {
@@ -61,10 +60,10 @@ const infoData: InfoItem[] = [
     images: [Bacoor, Paco1, Paco2, Paco3],
   },
   {
-    title: "Step Up Studio",
-    content: "474 P.BURGOS STREET 23 CARIDAD, CAVITE",
+    title: "Cruzaders TKD Lokal Molino",
+    content: "V-Central Mall Molino, Bacoor, Cavite",
     mapUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.405457329494!2d120.8914998248267!3d14.478072905642005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x339632b5663d269d%3A0xacc0bab20def04e7!2s474%20P.%20Burgos%20Ave%2C%20Caridad%2C%20Cavite!5e0!3m2!1sen!2sph!4v1755422299654!5m2!1sen!2sph",
+      "https://www.google.com/maps/embed?pb=!4v1755675669384!6m8!1m7!1sw_jPGBuqsdkZxRK8hilUKw!2m2!1d14.40672358833664!2d120.9754701342436!3f145.88608891288402!4f3.8675750072245307!5f0.7820865974627469",
     images: [Step_Up, Paco1, Paco2, Paco3],
   },
   {
@@ -113,8 +112,8 @@ const infoData: InfoItem[] = [
 
 // Custom section order using indices from infoData
 const sectionItemsIndices: number[][] = [
-  [0, 2, 4, 5], // Section 1
-  [6, 7], // Section 2
+  [0, 1, 2, 3, 4, 5], // Section 1
+  [6], // Section 2
   [10], // Section 3
   [8], // Section 4
   [9], // Section 5
