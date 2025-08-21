@@ -1,10 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
 import "../assets/css/InformationCards.css";
 import Imus from "../assets/images/Imus.jpg";
-import GenTri from "../assets/images/GenTri.jpg";
 import Dasmarinas from "../assets/images/Dasmarinas.jpg";
 import Bacoor from "../assets/images/Bacoor.jpg";
-import Step_Up from "../assets/images/Step UP.jpg";
+import Mainsquare from "../assets/images/Mainsquare.jpg";
+import Mainsquare1 from "../assets/images/Mainsquare1.jpg";
+import Mainsquare2 from "../assets/images/Mainsquare2.jpg";
+import Somo from "../assets/images/Somo.jpg";
+import Somo1 from "../assets/images/Somo1.jpg";
+import Somo2 from "../assets/images/Somo2.jpg";
+import Somo3 from "../assets/images/Somo3.jpg";
 import Mana from "../assets/images/Mana.jpg";
 import FSES from "../assets/images/FSES.jpg";
 import Paranaque from "../assets/images/Paranaque.jpg";
@@ -43,7 +48,7 @@ const infoData: InfoItem[] = [
     content: "Vista Mall, SOMO - A, Molino - Paliparan Rd, Bacoor, Cavite",
     mapUrl:
       "https://www.google.com/maps/embed?pb=!4v1755676432030!6m8!1m7!1sLqIGsyGqO3qUrvkNZJgQAw!2m2!1d14.38533640150141!2d120.9795752482318!3f209.39480442053878!4f10.588966685049456!5f0.4000000000000002",
-    images: [GenTri, Paco1, Paco2, Paco3],
+    images: [Somo, Somo1, Somo2, Somo3],
   },
   {
     title: "Vista Mall Dasmarinas",
@@ -57,14 +62,14 @@ const infoData: InfoItem[] = [
     content: "BACOOR BLVD, MOLINO BLVD., BRGY, BAYANAN, BACOOR, CAVITE",
     mapUrl:
       "https://www.google.com/maps/embed?pb=!4v1755421975374!6m8!1m7!1swwII5qCVUc7O8zjefpltPg!2m2!1d14.42702391278704!2d120.9644755351902!3f36.315417670950865!4f3.9641306557803517!5f0.7820865974627469",
-    images: [Bacoor, Paco1, Paco2, Paco3],
+    images: [Bacoor, Mainsquare, Mainsquare1, Mainsquare2],
   },
   {
     title: "Cruzaders TKD Lokal Molino",
     content: "V-Central Mall Molino, Bacoor, Cavite",
     mapUrl:
       "https://www.google.com/maps/embed?pb=!4v1755675669384!6m8!1m7!1sw_jPGBuqsdkZxRK8hilUKw!2m2!1d14.40672358833664!2d120.9754701342436!3f145.88608891288402!4f3.8675750072245307!5f0.7820865974627469",
-    images: [Step_Up, Paco1, Paco2, Paco3],
+    images: [Somo, Paco1, Paco2, Paco3],
   },
   {
     title: "Cruzader TKD Mana",
@@ -76,7 +81,8 @@ const infoData: InfoItem[] = [
   {
     title: "Cruzaders Paranaque Gym",
     content: "10 st. Joseph, Parañaque, Metro Manila",
-    mapUrl: "https://www.google.com/maps/embed?...",
+    mapUrl:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d965.7286607231035!2d121.01651953871955!3d14.489589282331064!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397cf00340306d9%3A0x357425efdb45bf0b!2sCRUZADERS%20PARA%C3%91AQUE%20GYM!5e0!3m2!1sen!2sph!4v1755747196936!5m2!1sen!2sph",
     images: [Paranaque, Paco1, Paco2, Paco3],
   },
   {
